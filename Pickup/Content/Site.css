@@ -1,0 +1,186 @@
+﻿/*body {*/
+    /*padding-top: 50px;
+    padding-bottom: 20px;*/
+/*}*/
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    min-height: 100vh;
+    padding-bottom: 20px;
+}
+.body-content footer{
+    position: relative;
+    bottom: 0;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.player-container {
+    float: left;
+}
+.player {
+    width: 140px;
+    height: 140px;
+    margin: 21px;
+    border-radius: 50%;
+    border: solid 7px black;
+    position: relative;
+    /*float: left;*/
+    /*display: grid;
+    place-items: center;*/
+    overflow: hidden;
+}
+.add-roles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    bottom: 0;
+    transition: opacity ease-in-out 0.3s;
+}
+.add-roles:hover .add-role {
+    opacity: 0.9;
+}
+.add-role {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    left: 0;
+    color: black;
+    cursor: pointer;
+    padding: 3px;
+    transition: opacity ease-in-out 0.3s;
+    display: grid;
+    place-items: center;
+}
+.add-roles:hover .add-role:hover {
+    opacity: 1;
+}
+
+.add-role.hostRole{
+    top: 0;
+    background-color:lightgreen;
+}
+.add-role.adminRole {
+    bottom: 0;
+    background-color: lightskyblue;
+}
+
+.admin {
+    box-shadow: 0px 0px 0px 14px blue;
+}
+.host{
+    border: solid 14px green;
+}
+#account-login {
+    position: fixed;
+    top: 28px;
+    right: 28px;
+    width: 91px;
+    height: 91px;
+    background-color: lightgray;
+    border-radius: 50%;
+    border: solid 3px black;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+#loginForm{
+    text-align: left;
+}
+#account-login:hover {
+    transform: scale(1.1);
+}
+#login-modal {
+    width: 90vw;
+    max-width: 720px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 21px;
+    background-color: white;
+    border: solid 1px rgba(0,0,0,0.3);
+    padding: 14px;
+    box-shadow: 7px 6px 10px -2px rgba(0,0,0,0.3);
+    
+}
+.account-image{
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+#login-button, #register-button, #logout-button {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    border: none;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+}
+#login-button{
+    top: 0;
+    background-color: lightblue;
+    border-bottom: solid 2px black;
+}
+#register-button {
+    bottom: 0;
+    background-color: lightgreen;
+}
+#logout-button {
+    border-top: solid 2px black;
+    bottom: 0;
+    background-color: lightblue;
+    height: 30%;
+}
+#login-modal {
+    text-align: center;
+}
+#modal-container{
+    z-index:100;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.3);
+}
+#modal-popup {
+    position: fixed;
+    width: 90vw;
+    max-width: 720px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 21px;
+    background-color: white;
+    border: solid 1px rgba(0,0,0,0.3);
+    padding: 14px;
+    box-shadow: 7px 6px 10px -2px rgba(0,0,0,0.3);
+}
+
+.close-login {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    cursor: pointer;
+}

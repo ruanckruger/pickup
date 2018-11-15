@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+<div id="account-login">
+    @{
+        var curUserId = User.Identity.GetUserId();
+        using (var db = new PickupModel())
+        {
+            var curUser = db.Players.FirstOrDefault(p => p.PlayerID == curUserId);
+            //var curUser = User.Identity.GetUserId();
+            if (curUser.Picture != null)
+            {
+                <img id="account-image" class="account-image" src="@Url.Action("UserPhotos", "Matches")" />
+            }
+            else
+            {
+                <img id="account-image" src="~/Content/Img/emptyAvatar.jpg" />
+                }
+
+            }
+        }
+    <a id="logout-button" user-id="@curUserId">Logout</a>
+</div>
+                    }
+                }
+                else
+                {
+    <div id="account-login">
+        <button id="login-button">Login</button>
+        <button id="register-button">Register</button>
+        @*@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+        @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })*@
+    </div>
+}

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Pickup.Models.MatchesModel>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List of current Matches</h2>
+
+<p>
+    @if (Request.IsAuthenticated)
+    {
+        if (Roles.IsUserInRole("Admin") || Roles.IsUserInRole("SuperAdmin"))
+        {
+            <button class="btn btn-success" id="create-new-match">
+                Create New Scrim!
+            </button>
+        }
+    }
+</p>
+
+@if (Model == null)
+{
+    <h1 class="text-center">No matches yet! Ask an admin to start one!</h1>
+}
+else
+{
+    <div id="matches-container">
+        @*@{ var matches = new IEnumerable<Model>() ;}*@
+        @foreach (var match in Model)
+        {
+            Html.RenderAction("MatchInfo","Matches", new { matchId = match.matchID });
+            //Html.Action("~/Views/Matches/MatchInfo.cshtml?matchId=" + match.matchID);
+
+
+            @*<div id="@("match-" + match.matchID)" class="row match text-center">
+                <h3>@Html.DisplayFor(modelItem => match.matchMap) - @Html.DisplayFor(modelItem => match.matchPlayerCount) / 10</h3>
+                @if (Request.IsAuthenticated)
+                {
+                    var curUser = User.Identity.GetUserId();
+                    if (match.matchPlayers.Where(p => p.playerID == curUser).Count() == 0)
+                    {
+                        <button match-id="@match.matchID" class="join-match btn">Join Match</button>
+                    }
+                    else
+                    {
+                        <button match-id="@match.matchID" class="leave-match btn">Leave Match</button>
+                    }
+                    if (User.Identity.GetUserId() == match.matchAdmin)
+                    {
+                        <button match-id="@match.matchID" class="end-match btn">End Match</button>
+                    }
+                }
+                <div class="curPlayers row text-center">
+                    @foreach (var player in match.matchPlayers)
+                    {
+                        <div class="player-container" id="@player.playerID">
+                            <div class="player">
+                                @if (player.playerPicture != null)
+                                {
+                                    <img class="account-image" src="@Url.Action("PlayerPhotos", "Matches", new { playerId = player.playerID })" />
+                                }
+                                else
+                                {
+                                    <img class="account-image" src="~/Content/img/emptyAvatar.jpg" />
+                                }
+                                @Html.DisplayFor(modelItem => player.playerCurRole)
+                                @{
+                                    if (User.Identity.GetUserId() == match.matchAdmin)
+                                    {
+                                        <div class='add-roles'>
+                                            <a class='add-role adminRole' player-id="@player.playerID">Make Admin</a>
+                                            <a class='add-role hostRole' player-id="@player.playerID">Make Host</a>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            @Html.DisplayFor(modelItem => player.playerUsername)
+                            <div class="player-role"></div>
+                            @if (player.playerID == match.matchAdmin)
+                            {<div class="player-admin"></div>}
+                            @if (player.playerID == match.matchHost)
+                            {<div class="player-host"></div>}
+                        </div>
+                    }
+                </div>
+            </div>*@
+        }
+    </div>
+}

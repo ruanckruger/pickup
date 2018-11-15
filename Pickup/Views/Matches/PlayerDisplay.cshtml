@@ -1,0 +1,39 @@
+﻿@model Pickup.Models.MatchesModel
+@using Microsoft.AspNet.Identity
+@if (Model.matchPlayers.ToArray().Count() > 0) { 
+
+    var player = Model.matchPlayers.ToArray()[0];
+    var match = Model;
+
+    <div class="player-container col-md-2" id="@player.playerID">
+        <div class="player">
+            @if (player.playerPicture != null)
+            {
+                <img class="account-image" src="@Url.Action("PlayerPhotos", "Matches", new { playerId = player.playerID })" />
+            }
+            else
+            {
+                <img class="account-image" src="~/Content/img/emptyAvatar.jpg" />
+            }
+            @Html.DisplayFor(modelItem => player.playerCurRole)
+            @{
+                if (Request.IsAuthenticated)
+                {
+                    if (User.Identity.GetUserId() == match.matchAdmin)
+                    {
+                        <div class='add-roles'>
+                            <a class='add-role adminRole' player-id="@player.playerID">Adminify</a>
+                            <a class='add-role hostRole' player-id="@player.playerID">Hostify</a>
+                        </div>
+                    }
+                }
+            }
+        </div>
+        @Html.DisplayFor(modelItem => player.playerUsername)
+        <div class="player-role"></div>
+        @if (player.playerID == match.matchAdmin)
+        {<div class="player-admin"></div>}
+        @if (player.playerID == match.matchHost)
+        {<div class="player-host"></div>}
+    </div>
+    }

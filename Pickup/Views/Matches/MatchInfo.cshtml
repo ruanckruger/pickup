@@ -1,0 +1,33 @@
+﻿@model Pickup.Models.MatchesModel
+@using Microsoft.AspNet.Identity
+@{ var match = Model; }
+<div id="@("match-" + match.matchID)" class="row match text-center">
+    <h3>@Html.DisplayFor(modelItem => match.matchMap) - <span class="match-player-count">@Html.DisplayFor(modelItem => match.matchPlayerCount)</span> / 10</h3>
+    @if (Request.IsAuthenticated)
+    {
+        var curUser = User.Identity.GetUserId();
+        if (match.matchPlayers.Where(p => p.playerID == curUser).Count() == 0)
+        {
+            <button match-id="@match.matchID" class="join-match btn">Join Match</button>
+        }
+        else if (match.matchPlayers.Where(p => p.playerCurMatch == match.matchID).Count() == 10)
+        {
+            <button match-id="@match.matchID" class="full-game btn">Game is Full</button>
+        }
+        else
+        {
+            <button match-id="@match.matchID" class="leave-match btn">Leave Match</button>
+        }
+        if (User.Identity.GetUserId() == match.matchAdmin)
+        {
+            <button match-id="@match.matchID" class="end-match btn">End Match</button>
+        }
+        @*@Html.ActionLink("Join Match", "Join", new { /* id=item.PrimaryKey */ })*@
+    }
+    <div class="curPlayers row text-center">
+        @foreach (var player in match.matchPlayers)
+        {
+            Html.RenderAction("PlayerDisplay", "Matches", new { playerId = player.playerID, matchId = match.matchID });
+        }
+    </div>
+</div>
